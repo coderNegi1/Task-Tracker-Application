@@ -31,12 +31,12 @@ mongoose.connect(process.env.MONGO_URI, {
   useUnifiedTopology: true,
 })
   .then(() => {
-    console.log(`✅ Connected to MongoDB at ${process.env.MONGO_URI}`);
+    console.log(`Connected to MongoDB at ${process.env.MONGO_URI}`);
     app.listen(process.env.PORT, () => {
-      console.log(`🚀 Server running on port ${process.env.PORT}`);
+      console.log(`Server running on port ${process.env.PORT}`);
     });
   })
   .catch(err => {
-    console.error('❌ Error connecting to MongoDB:', err.message);
+    console.error('Error connecting to MongoDB:', err.message);
     process.exit(1); // Exit the process if MongoDB connection fails
   });
