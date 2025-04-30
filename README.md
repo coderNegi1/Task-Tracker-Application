@@ -1,96 +1,200 @@
 Task Tracker Application
-The Task Tracker Application allows users to manage their projects and tasks effectively. This application is designed for multiple users, where each user can have up to 4 projects. Each project can contain multiple tasks, and each task can be tracked with details like title, description, and progress status.
+Hey there! 
 
-Features
-Signup: Allows users to create an account by providing email, password, name, and country.
+Welcome to my Task Tracker Application. This is a full-stack web app that lets users create and manage their projects and tasks. It’s built with ExpressJS for the backend, ReactJS for the frontend, and MongoDB to store data. The app also uses JWT (JSON Web Tokens) for user authentication.
 
-Login: Authenticates users using email and password.
+What Can You Do with This App?
+With this app, you can:
 
-Create a Project: Users can create a new project (limit: 4 projects per user).
+Sign up and log in using your email and password (no more passwords written on paper!).
 
-Create a Task: Users can create tasks for their projects.
+Create and manage your projects. You can have up to 4 projects at once.
 
-Read a Task: Users can view tasks and their details.
+Add tasks to your projects. Each task can have a status (like To Do, In Progress, Completed) to track your progress.
 
-Update a Task: Users can update the details of a task.
+Update and delete tasks whenever you need to make changes.
 
-Delete a Task: Users can delete a task from a project.
+Tech Stack 
+Here’s what I used to build this:
 
-User Information
-Each user is required to provide the following details upon registration:
+Backend: ExpressJS (the API is super lightweight and handles everything)
 
-Email: For account identification.
+Frontend: ReactJS (for a dynamic, responsive UI)
 
-Password: For secure authentication.
+Database: MongoDB (using Mongoose for easier management)
 
-Name: To personalize the user profile.
+Authentication: JWT (so you can securely log in)
 
-Country: To store the user's country information.
+Styling: TailwindCSS (for clean and modern design)
 
-Task Information
-Each task has the following attributes:
+Notifications: React Toastify (for showing success/error messages)
 
-Title: A short name/heading for the task.
+What You’ll Need
+Before you can get started, make sure you have the following on your local machine:
 
-Description: A detailed explanation of the task.
+Node.js (v14 or higher)
 
-Status: To track progress (e.g., "Not Started", "In Progress", "Completed").
+MongoDB (can be local or via MongoDB Atlas)
 
-Creation Date: The date when the task was created.
+Git (for version control)
 
-Completion Date: The date when the task is marked as completed (optional).
+A web browser to run the app
 
-Tech Stack
-Backend: ExpressJS (Node.js framework)
+How to Run the App
+1. Clone the Repo
+First, grab a copy of the project:
 
-Frontend: ReactJS
-
-Database: MongoDB (NoSQL database)
-
-Authentication: JWT (JSON Web Token) for user authentication
-
-State Management: React's useState, useEffect
-
-CSS Framework: TailwindCSS for responsive design
-
-API Requests: Axios for HTTP requests
-
-Project Structure
 bash
 Copy
 Edit
-task-tracker-app/
-├── backend/
-│   ├── controllers/
-│   │   ├── authController.js      # Handles user authentication (login/signup)
-│   │   ├── projectController.js   # Manages project-related APIs
-│   │   └── taskController.js      # Manages task-related APIs
-│   ├── models/
-│   │   ├── User.js                # User model schema
-│   │   ├── Project.js             # Project model schema
-│   │   └── Task.js                # Task model schema
-│   ├── routes/
-│   │   ├── authRoutes.js          # Routes for login/signup
-│   │   ├── projectRoutes.js       # Routes for project management
-│   │   └── taskRoutes.js          # Routes for task management
-│   ├── middleware/
-│   │   └── authMiddleware.js      # Middleware for protecting routes (JWT)
-│   ├── server.js                  # Entry point for Express server
-│   └── config.js                  # Database connection & other configurations
-├── frontend/
-│   ├── src/
-│   │   ├── components/
-│   │   │   ├── Header.js          # Header component with navigation
-│   │   │   ├── TaskList.js        # Task listing component
-│   │   │   └── ProjectList.js     # Project listing component
-│   │   ├── pages/
-│   │   │   ├── Login.js           # Login page
-│   │   │   ├── Signup.js          # Signup page
-│   │   │   ├── Dashboard.js       # Dashboard page for managing projects/tasks
-│   │   ├── App.js                 # Main React App component
-│   │   ├── index.js               # React entry point
-│   │   └── axiosInstance.js       # Axios setup for API calls
-│   └── tailwind.config.js          # TailwindCSS configuration
-├── .env                            # Environment variables (e.g., JWT_SECRET, DB_URI)
-├── .gitignore                      # Git ignore file
-└── package.json                    # Project dependencies and scripts# Task-Tracker-Application
+git clone https://github.com/<your-username>/task-tracker-app.git
+cd task-tracker-app
+2. Set Up the Backend
+Go to the backend folder:
+
+bash
+Copy
+Edit
+cd backend
+Install the dependencies:
+
+bash
+Copy
+Edit
+npm install
+Create a .env file in the backend directory. Inside, you’ll need to add:
+
+JWT_SECRET: Your secret key for JWT signing (keep this safe).
+
+DB_URI: MongoDB connection string (e.g., mongodb://localhost:27017/task-tracker or your MongoDB Atlas URI).
+
+Example .env file:
+
+env
+Copy
+Edit
+JWT_SECRET=my-super-secret-key
+DB_URI=mongodb://localhost:27017/task-tracker
+Start the backend:
+
+bash
+Copy
+Edit
+npm start
+This will start your server at http://localhost:5000.
+
+3. Set Up the Frontend
+Now, navigate to the frontend folder:
+
+bash
+Copy
+Edit
+cd frontend
+Install the dependencies for the frontend:
+
+bash
+Copy
+Edit
+npm install
+Run the frontend server:
+
+bash
+Copy
+Edit
+npm run dev
+The frontend will be available at http://localhost:3000.
+
+API Endpoints
+Here are the main routes for interacting with the backend:
+
+User Authentication
+POST /api/auth/signup: Create a new user.
+
+Body: { email, password, name, country }
+
+POST /api/auth/login: Log in a user and receive a JWT token.
+
+Body: { email, password }
+
+Project Management
+POST /api/projects: Create a new project.
+
+Body: { title, description }
+
+GET /api/projects: Get all projects for the logged-in user.
+
+Task Management
+POST /api/tasks: Create a new task.
+
+Body: { title, description, status, projectId }
+
+GET /api/tasks: Get all tasks for the logged-in user.
+
+Query param: project=<project-id> to filter tasks by project.
+
+GET /api/tasks/:taskId: Get details of a specific task.
+
+PUT /api/tasks/:taskId: Update a task.
+
+Body: { title, description, status, completedAt }
+
+DELETE /api/tasks/:taskId: Delete a specific task.
+
+Deployment (Bonus Points)
+If you want to deploy this app, you can use platforms like Heroku for the backend and Netlify/Vercel for the frontend.
+
+Backend on Heroku
+Log in to Heroku:
+
+bash
+Copy
+Edit
+heroku login
+Create a new Heroku app:
+
+bash
+Copy
+Edit
+heroku create
+Push your app to Heroku:
+
+bash
+Copy
+Edit
+git push heroku main
+Set the necessary environment variables on Heroku:
+
+bash
+Copy
+Edit
+heroku config:set JWT_SECRET=my-super-secret-key
+heroku config:set DB_URI=mongodb://localhost:27017/task-tracker
+Frontend on Netlify/Vercel
+Go to Netlify or Vercel.
+
+Connect your GitHub repository.
+
+Deploy your frontend and it’ll automatically be live!
+
+Environment Variables
+For the backend, you’ll need to create a .env file with these values:
+
+JWT_SECRET: Your secret key for signing JWT tokens. It’s a random string (you can use any string here).
+
+DB_URI: The MongoDB URI to connect to your database (local or MongoDB Atlas).
+
+Example .env file:
+
+env
+Copy
+Edit
+JWT_SECRET=my-super-secret-key
+DB_URI=mongodb://localhost:27017/task-tracker
+Final Thoughts 
+This app is a simple yet effective way to keep track of your tasks and projects. I’ve built it with flexibility in mind, so you can easily scale it or add new features if needed. I hope it helps you stay organized!
+
+If you have any feedback or ideas for improvements, feel free to open an issue or create a pull request. 
+
+Author: Prashant Negi
+
+
